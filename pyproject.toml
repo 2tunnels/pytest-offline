@@ -8,7 +8,12 @@ readme = "README.md"
 packages = [{include = "pytest_offline"}]
 repository = "https://github.com/2tunnels/pytest-offline"
 classifiers = [
-    "Development Status :: 1 - Planning"
+    "Development Status :: 1 - Planning",
+    "Environment :: Plugins",
+    "Framework :: Pytest",
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Topic :: Software Development :: Testing",
 ]
 
 [tool.poetry.plugins.pytest11]
