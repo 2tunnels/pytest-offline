@@ -1,0 +1,11 @@
+# Root dirs
+/.idea/
+/.mypy_cache/
+/.pytest_cache/
+/dist/
+
+# Global dirs
+__pycache__/
+
+# Global files
+.DS_Store
