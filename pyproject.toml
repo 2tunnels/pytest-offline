@@ -6,6 +6,10 @@ authors = ["Vlad Dmitrievich <2tunnels@proton.me>"]
 license = "MIT"
 readme = "README.md"
 packages = [{include = "pytest_offline"}]
+repository = "https://github.com/2tunnels/pytest-offline"
+classifiers = [
+    "Development Status :: 1 - Planning"
+]
 
 [tool.poetry.plugins.pytest11]
 offline = "pytest_offline.plugin"
