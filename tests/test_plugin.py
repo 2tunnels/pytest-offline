@@ -2,7 +2,7 @@ from _pytest.pytester import Pytester
 
 _tests = """
 import socket
-        
+
 import pytest
 
 def test_block_hosts_ip():
