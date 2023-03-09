@@ -2,8 +2,8 @@ import socket
 
 import pytest
 
-from pytest_offline.utils import block_hosts, block_ports
 from pytest_offline.exceptions import BlockedHostError, BlockedPortError
+from pytest_offline.utils import block_hosts, block_ports
 
 
 @pytest.mark.parametrize("family,host", [(socket.AF_INET, "127.0.0.1"), (socket.AF_INET6, "::1")])
@@ -20,7 +20,7 @@ def test_block_hosts_ip_connect(family: int, host: str) -> None:
     ):
         s.connect((host, 8000))
 
-    assert repr(exc_info.value) == f"BlockedHostError('{host} host was blocked')"
+    assert repr(exc_info.value) == f"BlockedHostError('{host}:8000 connection was blocked')"
 
     # Connection to non-blocked host
     with (
@@ -49,7 +49,7 @@ def test_block_hosts_ip_connect_ex(family: int, host: str) -> None:
     ):
         s.connect_ex((host, 8000))
 
-    assert repr(exc_info.value) == f"BlockedHostError('{host} host was blocked')"
+    assert repr(exc_info.value) == f"BlockedHostError('{host}:8000 connection was blocked')"
 
     # Connection to non-blocked host
     with socket.socket(family, socket.SOCK_STREAM) as s, block_hosts("1.1.1.1"):
@@ -73,7 +73,7 @@ def test_block_hosts_hostname_connect():
     ):
         s.connect(("foo.bar", 80))
 
-    assert repr(exc_info.value) == "BlockedHostError('foo.bar host was blocked')"
+    assert repr(exc_info.value) == "BlockedHostError('foo.bar:80 connection was blocked')"
 
     # Connection to non-blocked host
     with (
@@ -101,7 +101,7 @@ def test_block_hosts_hostname_connect_ex():
     ):
         s.connect_ex(("foo.bar", 80))
 
-    assert repr(exc_info.value) == "BlockedHostError('foo.bar host was blocked')"
+    assert repr(exc_info.value) == "BlockedHostError('foo.bar:80 connection was blocked')"
 
     # Connection to non-blocked host
     with (
@@ -130,7 +130,7 @@ def test_block_ports_connect(family: int, host: str) -> None:
     ):
         s.connect((host, 8000))
 
-    assert repr(exc_info.value) == "BlockedPortError('8000 port was blocked')"
+    assert repr(exc_info.value) == f"BlockedPortError('{host}:8000 connection was blocked')"
 
     # Connection to non-blocked port
     with (
@@ -159,7 +159,7 @@ def test_block_ports_connect_ex(family: int, host: str) -> None:
     ):
         s.connect_ex((host, 8000))
 
-    assert repr(exc_info.value) == "BlockedPortError('8000 port was blocked')"
+    assert repr(exc_info.value) == f"BlockedPortError('{host}:8000 connection was blocked')"
 
     # Connection to non-blocked port
     with socket.socket(family, socket.SOCK_STREAM) as s, block_ports(9000):

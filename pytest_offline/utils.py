@@ -15,10 +15,10 @@ def _block_connection(*, hosts: Optional[tuple[str]] = None, ports: Optional[tup
             port = address[1]
 
             if hosts is not None and host in hosts:
-                raise BlockedHostError(f"{host} host was blocked")
+                raise BlockedHostError(f"{host}:{port} connection was blocked")
 
             if ports is not None and port in ports:
-                raise BlockedPortError(f"{port} port was blocked")
+                raise BlockedPortError(f"{host}:{port} connection was blocked")
 
             return func(self, address)
 
